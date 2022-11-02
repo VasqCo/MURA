@@ -13,7 +13,6 @@ client = guilded.Client()
 @client.event
 async def on_ready():
     print(f'We have logged in as {client.user}')
-    await client.change_presence(activity=discord.Game('Hobo Horror 2'))
 
 
 
@@ -27,42 +26,6 @@ async def on_message(message):
     channel = str(channel).replace('Unknown User', f'{username}')
     msgformat = f'{username} - {channel} : {msg}'
     print(msgformat)
-
-    #Download audio from youtube
-    if msg.lower().startswith('download '):
-        command, modifier, link = msg.split()
-        # -v = single video
-        if modifier == '-v':
-            video = YouTube(link)
-            await channel.send(f'Downloading {video.title}')
-            download = video.streams.get_audio_only().download('download')
-            audio = AudioFileClip(download)
-            mp3 = download.split('.mp4')[0] + '.mp3'
-            audio.write_audiofile(mp3)
-            try:
-                await channel.send(file=discord.File(mp3))
-            except discord.errors.HTTPException:
-                await channel.send('fil to big')
-            os.remove(mp3)
-            os.remove(download)
-        # -p = list of videos
-        if modifier == '-p':
-            playlist = Playlist(link)
-            await channel.send(f'Downloading {playlist.title}')
-            for video in playlist.videos:
-                await channel.send(f'Downloading {video.title}')
-                download = video.streams.get_audio_only().download('/home/mcpi/Mura/download')
-                audio = AudioFileClip(download)
-                mp3 = download.split('.mp4')[0] + '.mp3'
-                audio.write_audiofile(mp3, verbose=False)
-                #Attempt to post the video but sends a message if it cannot
-                try:
-                    await channel.send(file=discord.File(mp3))
-                except discord.errors.HTTPException:
-                    await channel.send('The file is too large, moving on.')
-                os.remove(mp3)
-                os.remove(download)
-                
 
     if msg.lower().startswith('breadbomb '):
         command, mention = msg.split()
