@@ -1,22 +1,21 @@
 #!/usr/bin/env python3
 #IMPORT LIBRARIES
-import discord
+import guilded
 import time
 from pytube import YouTube, Playlist
-import os
+import os, sys
 from moviepy.editor import *
 from dotenv import load_dotenv
 load_dotenv('.env')
 
-client = discord.Client(intents=discord.Intents.all())
+client = guilded.Client()
 
 @client.event
 async def on_ready():
     print(f'We have logged in as {client.user}')
     await client.change_presence(activity=discord.Game('Hobo Horror 2'))
-    while True:
-        h = input(channel = client.get_channel('994043484275228784')
-	await channel.send(h)
+
+
 
 @client.event
 async def on_message(message):
@@ -25,6 +24,9 @@ async def on_message(message):
     channel = message.channel
     user = message.author
     username = str(message.author).split('#')[0]
+    channel = str(channel).replace('Unknown User', f'{username}')
+    msgformat = f'{username} - {channel} : {msg}'
+    print(msgformat)
 
     #Download audio from youtube
     if msg.lower().startswith('download '):
@@ -100,6 +102,11 @@ async def on_message(message):
     
     if client.user.mentioned_in(message):
         await channel.send('stfu i\'m reading')
+    
+    if msg.lower().startswith('say, '):
+        command, say = msg.split(', ')
+        await message.delete()
+        await channel.send(say)
         
 
 client.run(os.getenv('TOKEN'))
