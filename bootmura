@@ -2,14 +2,16 @@
 case $1 in
     -d)
     echo "Booting Discord bot"
-    echo "Go to log with \"tmux a -t murad\""
+    cd /home/mcpi/MURA/Mura\ Discord/
     tmux new -d -s "murad" "python3 /home/mcpi/MURA/Mura\ Discord/murad.py"
+    echo "Go to log with \"tmux a -t murad\""
     ;;
 
     -g)
     echo "Booting Guilded bot"
-    echo "Go to log with \"tmux a -t murag\""
+    cd /home/mcpi/MURA/Mura\ Guilded/
     tmux new -d -s "murag" "python3 /home/mcpi/MURA/Mura\ Guilded/murag.py"
+    echo "Go to log with \"tmux a -t murag\""
     ;;
 
     *)
