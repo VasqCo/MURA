@@ -23,7 +23,7 @@ async def on_message(message):
     channel = message.channel
     user = message.author
     channel = str(channel).replace('Unknown User', f'{user}')
-    msgformat = f'{username} - {channel} : {msg}'
+    msgformat = f'{user} - {channel} : {msg}'
     print(msgformat)
 
     if msg.lower().startswith('breadbomb '):
