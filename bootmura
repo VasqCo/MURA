@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+case $1 in
+    -d)
+    echo "Booting Discord bot"
+    tmux new -d -s "mura" "python3 /home/mcpi/MURA/Mura\ Discord/murad.py"
+    ;;
+
+    -g)
+    echo "Booting Guilded bot"
+    tmux new -d -s "mura" "python3 /home/mcpi/MURA/Mura\ Guilded/murag.py"
+    ;;
+
+    *)
+    echo "Usage: bootmura -d || bootmura -g"
+    ;;
+esac
