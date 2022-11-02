@@ -22,8 +22,7 @@ async def on_message(message):
     msg = str(message.content)
     channel = message.channel
     user = message.author
-    username = str(message.author).split('#')[0]
-    channel = str(channel).replace('Unknown User', f'{username}')
+    channel = str(channel).replace('Unknown User', f'{user}')
     msgformat = f'{username} - {channel} : {msg}'
     print(msgformat)
 
@@ -44,7 +43,7 @@ async def on_message(message):
                 mention = mention.replace("@","")
                 mention = mention.replace("!","")
 
-                #Grab user from discord
+                #Grab user from guilded
                 user = await client.fetch_user(mention)
 
                 username = str(user.name).split('#')[0]
@@ -55,16 +54,13 @@ async def on_message(message):
             else:
                 for i in range(50): #Unleash hell
                     await channel.send(':bread:')
-        except discord.errors.Forbidden:
+        except guilded.errors.Forbidden:
             await channel.send('I cannot send messages to that user')
-        except discord.errors.HTTPException:
+        except guilded.errors.HTTPException:
             await channel.send(':angry:')
 
     if 'women' in msg.lower() and message.author != client.user:
         await channel.send('women :coffee:')
-    
-    if client.user.mentioned_in(message):
-        await channel.send('stfu i\'m reading')
     
     if msg.lower().startswith('say, '):
         command, say = msg.split(', ')
