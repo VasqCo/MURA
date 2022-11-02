@@ -110,4 +110,4 @@ async def on_message(message):
         await channel.send(say)
         
 
-client.run(os.getenv('TOKEN'))
+client.run(str(os.getenv('TOKEN')))
